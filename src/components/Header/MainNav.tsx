@@ -121,6 +121,7 @@ const MainNav: React.FC<Props> = ({
               </div>
               {openDropdown === "city" && (
                 <div className="absolute left-0 w-full z-10 transition-all duration-300 ease-in-out">
+                  <div className="mt-7" />
                   <ul className="py-4 px-6 bg-white shadow-lg rounded-lg space-y-2 relative min-w-max">
                     {cities.map((item) => (
                       <li
