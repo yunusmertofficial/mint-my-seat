@@ -101,6 +101,41 @@ export default function Home() {
     },
   ];
 
+  const showsItems = [
+    {
+      imageSrc: "https://via.placeholder.com/400x300?text=Shows+1",
+      title: "Shows 1",
+    },
+    {
+      imageSrc: "https://via.placeholder.com/400x300?text=Shows+2",
+      title: "Shows 2",
+    },
+    {
+      imageSrc: "https://via.placeholder.com/400x300?text=Shows+3",
+      title: "Shows 3",
+    },
+    {
+      imageSrc: "https://via.placeholder.com/400x300?text=Shows+4",
+      title: "Shows 4",
+    },
+    {
+      imageSrc: "https://via.placeholder.com/400x300?text=Shows+5",
+      title: "Shows 5",
+    },
+    {
+      imageSrc: "https://via.placeholder.com/400x300?text=Shows+6",
+      title: "Shows 6",
+    },
+    {
+      imageSrc: "https://via.placeholder.com/400x300?text=Shows+7",
+      title: "Shows 7",
+    },
+    {
+      imageSrc: "https://via.placeholder.com/400x300?text=Shows+8",
+      title: "Shows 8",
+    },
+  ];
+
   return (
     <main className="relative">
       {/* ---------- Hero ---------- */}
@@ -189,6 +224,8 @@ export default function Home() {
 
         {/* Sports */}
         <CategorySection title="Sports" items={sportsItems} />
+
+        <CategorySection title="Shows" items={showsItems} />
 
         {/* ---------- NEDEN BU KADAR BAŞARILIYIZ? ---------- */}
         <section className="py-12 ">
