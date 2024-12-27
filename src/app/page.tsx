@@ -230,7 +230,7 @@ export default function Home() {
         <CategorySection title="Shows" items={showsItems} />
 
         {/* ---------- NEDEN BU KADAR BAŞARILIYIZ? ---------- */}
-        <section className="py-12 ">
+        <section className="pt-16 relative top-6  ">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-2">
               WHY ARE WE SO SUCCESSFUL?
