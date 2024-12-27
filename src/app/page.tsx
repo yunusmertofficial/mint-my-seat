@@ -173,8 +173,8 @@ export default function Home() {
       {/* ---------- Top Events ---------- */}
       <div className="relative bottom-28">
         <section>
-          <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-start mb-6 text-white">
+          <div className="max-w-7xl mx-auto ">
+            <h2 className="text-3xl font-bold text-start mb-6 text-white px-4">
               Top Events
             </h2>
 
@@ -191,7 +191,7 @@ export default function Home() {
                   spaceBetween: 30,
                 },
               }}
-              style={{ padding: "1rem 0" }} // Inline CSS
+              style={{ padding: "1rem 0 0 1rem" }} // Inline CSS
               className="w-full"
             >
               <SwiperSlide>
