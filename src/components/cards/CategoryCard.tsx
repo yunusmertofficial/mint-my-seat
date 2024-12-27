@@ -37,9 +37,9 @@ export default function CategorySection({
 }: CategorySectionProps) {
   return (
     <section className="py-8 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto ">
         {/* Başlık + View All butonu */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 px-4">
           <h2 className="text-3xl font-bold text-gray-900">{title}</h2>
           <button className="flex items-center gap-2">
             <span className="uppercase tracking-wide text-gray-900 font-light md:font-semibold">
@@ -52,7 +52,7 @@ export default function CategorySection({
         </div>
 
         {/* Masaüstü (≥ md) için grid */}
-        <div className="hidden md:block">
+        <div className="hidden md:block px-4">
           <div className="grid grid-cols-4 gap-4 mb-4">
             {items.slice(0, 4).map((item) => (
               <CategoryCard key={item.title} {...item} />
