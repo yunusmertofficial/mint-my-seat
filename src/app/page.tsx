@@ -16,7 +16,7 @@ function EventCard({
   description: string;
 }) {
   return (
-    <div className="rounded-lg shadow-lg overflow-hidden bg-white relative h-72 w-full sm:h-80">
+    <div className="rounded-lg shadow-md overflow-hidden bg-white relative h-72 w-full sm:h-80">
       <div className="relative h-2/3 w-full">
         <Image src={imageSrc} alt={title} fill style={{ objectFit: "cover" }} />
       </div>
@@ -161,7 +161,7 @@ export default function Home() {
             <input
               type="text"
               placeholder="Event, artist or team"
-              className="flex-1 p-3 rounded-l-lg border-none outline-none"
+              className="flex-1 p-3 rounded-l-lg border-none outline-none text-black"
             />
             <button className="bg-red-500 text-white px-4 py-3 rounded-r-lg hover:bg-red-600">
               Search
@@ -177,6 +177,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-start mb-6 text-white">
               Top Events
             </h2>
+
             <Swiper
               spaceBetween={20}
               slidesPerView={1.1}
@@ -190,6 +191,7 @@ export default function Home() {
                   spaceBetween: 30,
                 },
               }}
+              style={{ padding: "1rem 0" }} // Inline CSS
               className="w-full"
             >
               <SwiperSlide>

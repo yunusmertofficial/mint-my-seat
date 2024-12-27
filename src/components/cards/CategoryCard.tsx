@@ -67,7 +67,12 @@ export default function CategorySection({
 
         {/* Mobil (< md) için Swiper */}
         <div className="block md:hidden">
-          <Swiper slidesPerView={2.2} spaceBetween={16} className="w-full">
+          <Swiper
+            slidesPerView={2.2}
+            spaceBetween={16}
+            className="w-full"
+            style={{ padding: "1rem 0" }} // Inline CSS
+          >
             {items.map((item) => (
               <SwiperSlide key={item.title}>
                 <CategoryCard {...item} />
