@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaBars, FaChevronDown, FaChevronRight, FaUser } from "react-icons/fa";
+import { FaBars, FaChevronDown, FaChevronRight } from "react-icons/fa";
 import Link from "next/link";
 import { categories } from "@/utils/data";
 
@@ -144,25 +144,6 @@ const MainNav: React.FC<Props> = ({
               )}
             </li>
           </ul>
-        </div>
-
-        {/* Sağ Menü Öğeleri */}
-        <div className="hidden md:flex items-center space-x-6 ml-auto">
-          <Link
-            href="/sell"
-            className="text-white hover:text-gray-300 font-semibold"
-          >
-            Sell
-          </Link>
-          <Link
-            href="/support"
-            className="text-white hover:text-gray-300 font-semibold"
-          >
-            Support
-          </Link>
-          <Link href="/profile" aria-label="Kullanıcı Profili">
-            <FaUser size={24} className="text-white hover:text-gray-300" />
-          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
