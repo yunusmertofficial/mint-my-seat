@@ -170,7 +170,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ---------- Top Events ---------- */}
       <div className="relative bottom-28">
         <section>
           <div className="max-w-7xl mx-auto px-4">
