@@ -191,7 +191,7 @@ export default function Home() {
                   spaceBetween: 30,
                 },
               }}
-              style={{ padding: "1rem 0 0 1rem" }} // Inline CSS
+              style={{ padding: "1rem 0 1rem 1rem" }} // Inline CSS
               className="w-full"
             >
               <SwiperSlide>

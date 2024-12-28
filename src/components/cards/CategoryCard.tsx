@@ -71,7 +71,7 @@ export default function CategorySection({
             slidesPerView={2.2}
             spaceBetween={16}
             className="w-full"
-            style={{ padding: "1rem 0 0 1rem" }} // Inline CSS
+            style={{ padding: "1rem 0 1rem 1rem" }} // Inline CSS
           >
             {items.map((item) => (
               <SwiperSlide key={item.title}>
