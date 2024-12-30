@@ -1,32 +1,9 @@
-"use client";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import CategorySection, { CategoryItem } from "@/components/cards/CategoryCard";
 import { FaHeadset, FaLock, FaShieldAlt } from "react-icons/fa";
+import TopEventsSection from "@/sections/TopEventsSection";
 
 // Top Events Card (senin mevcut EventCard yapın)
-function EventCard({
-  imageSrc,
-  title,
-  description,
-}: {
-  imageSrc: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="rounded-lg shadow-md overflow-hidden bg-white relative h-72 w-full sm:h-80">
-      <div className="relative h-2/3 w-full">
-        <Image src={imageSrc} alt={title} fill style={{ objectFit: "cover" }} />
-      </div>
-      <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-        <p className="text-sm text-gray-500">{description}</p>
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   // Örnek "Music" verileri
@@ -138,7 +115,6 @@ export default function Home() {
 
   return (
     <main className="relative">
-      {/* ---------- Hero ---------- */}
       <div className="relative h-[450px] sm:h-[500px] w-full flex flex-col justify-center items-center">
         <Image
           src="/hero.webp"
@@ -172,64 +148,14 @@ export default function Home() {
 
       {/* ---------- Top Events ---------- */}
       <div className="relative bottom-28">
-        <section>
-          <div className="max-w-7xl mx-auto ">
-            <h2 className="text-3xl font-bold text-start mb-6 text-white px-4">
-              Top Events
-            </h2>
-
-            <Swiper
-              spaceBetween={20}
-              slidesPerView={1.1}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 30,
-                },
-              }}
-              style={{ padding: "1rem 0 1rem 1rem" }} // Inline CSS
-              className="w-full"
-            >
-              <SwiperSlide>
-                <EventCard
-                  imageSrc="/event1.webp"
-                  title="Moneybagg Yo"
-                  description="From $82.50 • Dec 27 • Coliseum at North Charleston"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <EventCard
-                  imageSrc="/event2.webp"
-                  title="Sheng Wang"
-                  description="From $44.00 • Dec 27 • The Aztec Theatre"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <EventCard
-                  imageSrc="/event3.webp"
-                  title="Maroon 5"
-                  description="From $300.30 • Dec 27 • Hard Rock Live at Seminole"
-                />
-              </SwiperSlide>
-              {/* İstersen daha fazla slide ekleyebilirsin */}
-            </Swiper>
-          </div>
-        </section>
-
-        {/* ---------- Kategoriler (Music, Sports vb.) ---------- */}
+        <TopEventsSection />
 
         <CategorySection title="Music" items={musicItems} />
-
         {/* Sports */}
         <CategorySection title="Sports" items={sportsItems} />
 
         <CategorySection title="Shows" items={showsItems} />
 
-        {/* ---------- NEDEN BU KADAR BAŞARILIYIZ? ---------- */}
         <section className="pt-16 relative top-6  ">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-2">
