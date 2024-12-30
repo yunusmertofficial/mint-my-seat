@@ -208,7 +208,7 @@ export default function Home() {
                   description="From $44.00 • Dec 27 • The Aztec Theatre"
                 />
               </SwiperSlide>
-              <SwiperSlide>
+              <SwiperSlide style={{ paddingRight: "1rem" }}>
                 <EventCard
                   imageSrc="/event3.webp"
                   title="Maroon 5"

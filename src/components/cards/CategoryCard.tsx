@@ -73,8 +73,13 @@ export default function CategorySection({
             className="w-full"
             style={{ padding: "1rem 0 1rem 1rem" }} // Inline CSS
           >
-            {items.map((item) => (
-              <SwiperSlide key={item.title}>
+            {items.map((item, index) => (
+              <SwiperSlide
+                key={item.title}
+                style={{
+                  paddingRight: index === items.length - 1 ? "1rem" : "",
+                }}
+              >
                 <CategoryCard {...item} />
               </SwiperSlide>
             ))}
