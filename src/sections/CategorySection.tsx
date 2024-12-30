@@ -1,6 +1,5 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import { MdArrowForward } from "react-icons/md";
 import CategoryCard, { CategoryItem } from "@/components/cards/CategoryCard";
 

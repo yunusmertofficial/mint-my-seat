@@ -1,10 +1,10 @@
+"use client";
+import "swiper/css";
 import CategorySection from "@/sections/CategorySection";
 import { CategoryItem } from "@/components/cards/CategoryCard";
+import TopEventsSection from "@/sections/TopEventsSection";
 import SuccessfullSection from "@/sections/SuccessfullSection";
 import HeroSection from "@/sections/HeroSection";
-import TopEventsSection from "@/sections/TopEventsSection";
-
-// Top Events Card (senin mevcut EventCard yapın)
 
 export default function Home() {
   // Örnek "Music" verileri
@@ -116,12 +116,23 @@ export default function Home() {
 
   return (
     <main className="relative">
+      {/* ---------- Hero ---------- */}
       <HeroSection />
+
+      {/* ---------- Top Events ---------- */}
       <div className="relative bottom-28">
         <TopEventsSection />
+
+        {/* ---------- Kategoriler (Music, Sports vb.) ---------- */}
+
         <CategorySection title="Music" items={musicItems} />
+
+        {/* Sports */}
         <CategorySection title="Sports" items={sportsItems} />
+
         <CategorySection title="Shows" items={showsItems} />
+
+        {/* ---------- NEDEN BU KADAR BAŞARILIYIZ? ---------- */}
         <SuccessfullSection />
       </div>
     </main>
