@@ -2,6 +2,7 @@
 import { useState, FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { FaPlus, FaMinus, FaTrashAlt } from "react-icons/fa";
 
 // Types
 interface PriceTier {
@@ -68,47 +69,121 @@ interface DropdownProps {
   defaultOption: string;
 }
 
-interface PricingCardProps {
-  tierName: string; // Name of the price tier (e.g., "Adult", "Child")
-  price: number; // Price for the tier
-  ticketType: string; // Name of the ticket type (e.g., "General Admission")
-  section: string; // Section name (e.g., "Diamond Circle")
-  category: string; // Category name (e.g., "Early Entry")
+interface Tab {
+  id: string;
+  label: string;
+  component: React.ReactNode;
 }
 
-interface AboutEventProps {
-  description: string; // Description of the event
+interface TabsProps {
+  tabs: Tab[];
+  activeTab: string;
+  setActiveTab: (tabId: string) => void;
 }
 
-const AboutEvent: FC<AboutEventProps> = ({ description }) => (
+const Tabs: FC<TabsProps> = ({ tabs, activeTab, setActiveTab }) => {
+  return (
+    <div>
+      <div className="flex flex-wrap gap-4 mt-6">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            className={`py-3 px-4 rounded-lg shadow transition ${
+              activeTab === tab.id
+                ? "bg-blue-600 text-white font-semibold"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            }`}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="py-8">
+        {tabs.find((tab) => tab.id === activeTab)?.component}
+      </div>
+    </div>
+  );
+};
+
+const AboutEvent: FC<{ description: string }> = ({ description }) => (
   <div className="bg-white shadow rounded-lg p-6">
     <h2 className="text-2xl font-bold mb-4">Event Information</h2>
     <p className="text-gray-700 leading-relaxed">{description}</p>
   </div>
 );
 
-const PricingCard: FC<PricingCardProps> = ({
+const PricingCard: FC<{
+  tierName: string;
+  price: number;
+  tierId: string;
+  selectedPriceTiers: Record<string, number>;
+  setSelectedPriceTiers: (tiers: Record<string, number>) => void;
+}> = ({
   tierName,
   price,
-  ticketType,
-  section,
-  category,
-}) => (
-  <div className="border rounded-lg p-4 bg-white hover:shadow-lg transition flex justify-between items-center">
-    <div>
-      <h4 className="font-semibold text-lg text-gray-800">{tierName}</h4>
-      <p className="text-gray-600 text-sm mt-1">{ticketType}</p>
-      <p className="text-gray-600 text-sm">{section}</p>
-      <p className="text-gray-600 text-sm">{category}</p>
-      <h3 className="font-bold text-xl text-blue-600 mt-3">
-        ₺{price.toFixed(2)}
-      </h3>
+  tierId,
+  selectedPriceTiers,
+  setSelectedPriceTiers,
+}) => {
+  const quantity = selectedPriceTiers[tierId] || 0;
+
+  const handleAdd = () => {
+    setSelectedPriceTiers({
+      ...selectedPriceTiers,
+      [tierId]: (selectedPriceTiers[tierId] || 0) + 1,
+    });
+  };
+
+  const handleRemove = () => {
+    if (quantity === 1) {
+      const updatedTiers = { ...selectedPriceTiers };
+      delete updatedTiers[tierId];
+      setSelectedPriceTiers(updatedTiers);
+    } else {
+      setSelectedPriceTiers({
+        ...selectedPriceTiers,
+        [tierId]: quantity - 1,
+      });
+    }
+  };
+
+  return (
+    <div className="border rounded-lg p-4 bg-white hover:shadow-lg transition flex flex-col items-center space-y-4">
+      <div className="text-center">
+        <h4 className="font-semibold text-lg text-gray-800">{tierName}</h4>
+        <h3 className="font-bold text-xl text-blue-600 mt-3">
+          ₺{price.toFixed(2)}
+        </h3>
+      </div>
+      <div className="flex items-center space-x-2">
+        {quantity > 0 && (
+          <>
+            <button
+              onClick={handleRemove}
+              className={`w-10 h-10 flex items-center justify-center rounded-full text-white ${
+                quantity > 1
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-red-600 hover:bg-red-700"
+              } transition`}
+            >
+              {quantity > 1 ? <FaMinus /> : <FaTrashAlt />}
+            </button>
+            <span className="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-700 font-bold rounded-full">
+              {quantity}
+            </span>
+          </>
+        )}
+        <button
+          onClick={handleAdd}
+          className="w-10 h-10 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full transition"
+        >
+          <FaPlus />
+        </button>
+      </div>
     </div>
-    <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-      Seç
-    </button>
-  </div>
-);
+  );
+};
 
 const Dropdown: FC<DropdownProps> = ({
   label,
@@ -134,7 +209,6 @@ const Dropdown: FC<DropdownProps> = ({
   </div>
 );
 
-// Header Component
 const Header: FC<{ title: string; breadcrumbs: Breadcrumb[] }> = ({
   title,
   breadcrumbs,
@@ -147,7 +221,7 @@ const Header: FC<{ title: string; breadcrumbs: Breadcrumb[] }> = ({
         layout="fill"
         objectFit="cover"
         priority
-        className="opacity-60 filter blur-sm" // Bulanıklaştırma ve karartma
+        className="opacity-60 filter blur-sm"
       />
     </div>
     <div className="relative z-10 flex flex-col items-center justify-center h-64 sm:h-80 text-center px-4">
@@ -170,7 +244,6 @@ const Header: FC<{ title: string; breadcrumbs: Breadcrumb[] }> = ({
   </div>
 );
 
-// Tickets Component
 const Tickets: FC<{
   ticketTypes: TicketType[];
   selectedTicketType: string;
@@ -179,6 +252,8 @@ const Tickets: FC<{
   setSelectedSection: (value: string) => void;
   selectedCategory: string;
   setSelectedCategory: (value: string) => void;
+  selectedPriceTiers: Record<string, number>;
+  setSelectedPriceTiers: (tiers: Record<string, number>) => void;
 }> = ({
   ticketTypes,
   selectedTicketType,
@@ -187,6 +262,8 @@ const Tickets: FC<{
   setSelectedSection,
   selectedCategory,
   setSelectedCategory,
+  selectedPriceTiers,
+  setSelectedPriceTiers,
 }) => {
   const selectedTypeData = ticketTypes.find(
     (ticketType) => ticketType._id === selectedTicketType
@@ -256,11 +333,11 @@ const Tickets: FC<{
           {selectedCategoryData.priceTiers.map((priceTier) => (
             <PricingCard
               key={priceTier._id}
+              tierId={priceTier._id}
               tierName={priceTier.name}
               price={priceTier.price}
-              ticketType={selectedTypeData?.name || ""}
-              section={selectedSectionData?.name || ""}
-              category={selectedCategoryData?.name || ""}
+              selectedPriceTiers={selectedPriceTiers}
+              setSelectedPriceTiers={setSelectedPriceTiers}
             />
           ))}
         </div>
@@ -269,12 +346,122 @@ const Tickets: FC<{
   );
 };
 
-// Main Component
+const TicketSummary: FC<{
+  selectedPriceTiers: Record<string, number>;
+  setSelectedPriceTiers: (tiers: Record<string, number>) => void;
+  ticketTypes: TicketType[];
+}> = ({ selectedPriceTiers, setSelectedPriceTiers, ticketTypes }) => {
+  const selectedItems: {
+    ticketType: string;
+    section: string;
+    category: string;
+    tier: string;
+    price: number;
+    quantity: number;
+    tierId: string;
+  }[] = [];
+
+  ticketTypes.forEach((ticketType) => {
+    ticketType.sections.forEach((section) => {
+      section.categories.forEach((category) => {
+        category.priceTiers.forEach((tier) => {
+          if (selectedPriceTiers[tier._id]) {
+            selectedItems.push({
+              ticketType: ticketType.name,
+              section: section.name,
+              category: category.name,
+              tier: tier.name,
+              price: tier.price,
+              quantity: selectedPriceTiers[tier._id],
+              tierId: tier._id,
+            });
+          }
+        });
+      });
+    });
+  });
+
+  const totalPrice = selectedItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+
+  const handleDelete = (tierId: string) => {
+    const updatedTiers = { ...selectedPriceTiers };
+    delete updatedTiers[tierId];
+    setSelectedPriceTiers(updatedTiers);
+  };
+
+  return (
+    <div className="bg-white shadow rounded-lg p-6">
+      <h2 className="text-2xl font-bold mb-4">Ticket Summary</h2>
+
+      {selectedItems.length === 0 ? (
+        <div className="text-center text-gray-600">
+          <p>Henüz bilet seçmediniz.</p>
+        </div>
+      ) : (
+        <>
+          <div className="space-y-4">
+            {selectedItems.map((item, index) => (
+              <div
+                key={index}
+                className="flex flex-col bg-gray-100 p-4 rounded-lg shadow-md"
+              >
+                <div className="flex justify-between items-center">
+                  <div className="text-lg font-semibold">{item.tier}</div>
+                  <button
+                    onClick={() => handleDelete(item.tierId)}
+                    className="text-red-600 hover:text-red-800 transition"
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </div>
+                <div className="text-sm text-gray-600">
+                  <span>Ticket Type: {item.ticketType}</span>
+                  <br />
+                  <span>Section: {item.section}</span>
+                  <br />
+                  <span>Category: {item.category}</span>
+                </div>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-sm text-gray-700">
+                    Quantity: {item.quantity}
+                  </span>
+                  <span className="text-sm font-bold text-gray-800">
+                    ₺{(item.price * item.quantity).toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="border-t mt-4 pt-4 flex justify-between items-center">
+            <span className="text-lg font-bold">Total Price</span>
+            <span className="text-lg font-bold text-blue-600">
+              ₺{totalPrice.toFixed(2)}
+            </span>
+          </div>
+
+          <div className="mt-6">
+            <button className="w-full py-3 px-4 rounded-lg text-white font-bold bg-blue-600 hover:bg-blue-700 transition">
+              Buy Tickets
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
 const TicketPage: FC = () => {
   const [activeTab, setActiveTab] = useState<string>("aboutEvent");
   const [selectedTicketType, setSelectedTicketType] = useState<string>("");
   const [selectedSection, setSelectedSection] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedPriceTiers, setSelectedPriceTiers] = useState<
+    Record<string, number>
+  >({});
 
   const ticket: Ticket = {
     name: "Beartooth Concert",
@@ -384,32 +571,25 @@ const TicketPage: FC = () => {
           setSelectedSection={setSelectedSection}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
+          selectedPriceTiers={selectedPriceTiers}
+          setSelectedPriceTiers={setSelectedPriceTiers}
         />
       ),
     },
   ];
-
   return (
     <div className="min-h-screen">
       <Header title={ticket.event.name} breadcrumbs={breadcrumbs} />
-      <div className="container mx-auto px-6">
-        <div className="flex flex-wrap gap-4 mt-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              className={`py-3 px-4 rounded-lg shadow transition ${
-                activeTab === tab.id
-                  ? "bg-blue-600 text-white font-semibold"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-              }`}
-              onClick={() => setActiveTab(tab.id)}
-            >
-              {tab.label}
-            </button>
-          ))}
+      <div className="min-h-screen grid grid-cols-1 lg:grid-cols-3 gap-4 container mx-auto p-6">
+        <div className="col-span-2 p-4">
+          <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
         </div>
-        <div className="py-8">
-          {tabs.find((tab) => tab.id === activeTab)?.component}
+        <div className="p-4">
+          <TicketSummary
+            selectedPriceTiers={selectedPriceTiers}
+            ticketTypes={ticket.ticketTypes}
+            setSelectedPriceTiers={setSelectedPriceTiers}
+          />
         </div>
       </div>
     </div>
