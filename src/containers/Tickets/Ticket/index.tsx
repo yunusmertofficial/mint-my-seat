@@ -32,10 +32,10 @@ const TicketContainer: FC = () => {
     },
     {
       label: ticket.event.subcategory.name,
-      link: `/${ticket.event.subcategory.slug}`,
+      link: `/${ticket.event.subcategory.category.slug}/${ticket.event.subcategory.slug}`,
     },
-    { label: ticket.event.name, link: `/${ticket.event.slug}` },
-    { label: ticket.city.name, link: `/${ticket.city.slug}` },
+    { label: ticket.event.name, link: `/events/${ticket.event.slug}` },
+    { label: ticket.city.name, link: `/cities/${ticket.city.slug}` },
     {
       label: `${ticket.name} - ${ticket.startTime.toLocaleDateString("en-US", {
         weekday: "long",
