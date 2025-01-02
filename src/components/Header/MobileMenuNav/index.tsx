@@ -2,13 +2,15 @@
 import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { motion } from "framer-motion";
-import { data, cities } from "@/utils/data";
 import MobileCategoryMenu from "./MobileCategoryMenu";
 import MobileCityMenu from "./MobileCityMenu";
+import { Category, City } from "@/types/model";
 
-const MobileMenuNav: React.FC<{ onCloseMenu: () => void }> = ({
-  onCloseMenu,
-}) => {
+const MobileMenuNav: React.FC<{
+  onCloseMenu: () => void;
+  cities: City[];
+  categories: Category[];
+}> = ({ onCloseMenu, cities, categories }) => {
   const [openMegaCategories, setOpenMegaCategories] = useState<string[]>([]);
 
   const toggleMegaCategory = (id: string) => {
@@ -35,7 +37,7 @@ const MobileMenuNav: React.FC<{ onCloseMenu: () => void }> = ({
           </div>
           <hr className="my-4 border-gray-300" />
           <ul className="space-y-4">
-            {data.map((category) => (
+            {categories.map((category) => (
               <MobileCategoryMenu
                 key={category._id}
                 category={category}

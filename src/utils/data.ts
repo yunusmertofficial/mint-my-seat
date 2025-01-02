@@ -543,6 +543,10 @@ export const getAllCategories = async (): Promise<Category[]> => {
   return data;
 };
 
+export const getAllCities = async () => {
+  return cities;
+};
+
 export const getAllCategoriesWithTopEvents =
   async (): Promise<CategoryWithTopEvents> => {
     return {

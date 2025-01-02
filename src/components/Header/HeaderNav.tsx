@@ -3,8 +3,15 @@
 import { useState } from "react";
 import MainNav from "./MainNav";
 import MobileMenuNav from "./MobileMenuNav";
+import { Category, City } from "@/types/model";
 
-const Header: React.FC = () => {
+const HeaderNav = ({
+  cities,
+  categories,
+}: {
+  cities: City[];
+  categories: Category[];
+}) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleCloseMenu = () => {
@@ -17,11 +24,19 @@ const Header: React.FC = () => {
         <MainNav
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
+          cities={cities}
+          categories={categories}
         />
-        {isMobileMenuOpen && <MobileMenuNav onCloseMenu={handleCloseMenu} />}
+        {isMobileMenuOpen && (
+          <MobileMenuNav
+            onCloseMenu={handleCloseMenu}
+            cities={cities}
+            categories={categories}
+          />
+        )}
       </nav>
     </>
   );
 };
 
-export default Header;
+export default HeaderNav;
