@@ -50,7 +50,7 @@ interface City {
   _id: string;
   name: string;
   slug: string;
-  imageUrl: string;
+  imageUrl?: string;
   tickets?: Ticket[];
 }
 

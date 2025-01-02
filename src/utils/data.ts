@@ -306,6 +306,15 @@ export const data: Category[] = [
   },
 ];
 
+export const cities = [
+  { _id: "1", name: "Atlanta", slug: "atlanta" },
+  { _id: "2", name: "Austin", slug: "austin" },
+  { _id: "3", name: "Boston", slug: "boston" },
+  { _id: "4", name: "Charlotte", slug: "charlotte" },
+  { _id: "5", name: "Chicago", slug: "chicago" },
+  { _id: "6", name: "Cincinnati", slug: "cincinnati" },
+];
+
 export function getTicketDetailsBySlug(slug: string): Ticket | null {
   for (const category of data) {
     for (const subcategory of category.subcategories || []) {

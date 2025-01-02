@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import MainNav from "./MainNav";
-import MobileMenu from "./MobileMenu";
+import MobileMenuNav from "./MobileMenuNav";
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,7 +18,7 @@ const Header: React.FC = () => {
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
         />
-        {isMobileMenuOpen && <MobileMenu onCloseMenu={handleCloseMenu} />}
+        {isMobileMenuOpen && <MobileMenuNav onCloseMenu={handleCloseMenu} />}
       </nav>
     </>
   );
